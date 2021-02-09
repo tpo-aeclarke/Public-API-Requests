@@ -96,6 +96,21 @@
         ======================== -->
 
         <!-- Add your JS here -->
+        <script src="https://unpkg.com/chai/chai.js"></script>
+        <script src="https://unpkg.com/mocha/mocha.js"></script>
+
+        <script class="mocha-init">
+            window.mocha.setup({
+            reporter: 'spec',
+            ui: 'bdd'
+            })
+        </script>
+
         <script src="js/scripts.js"></script>
+        <script src="js/scripts.spec.js"></script>
+
+        <script class="mocha-exec">
+            window.mocha.run()
+        </script>
     </body>
 </html>
