@@ -14,7 +14,7 @@ function loadData () {
         </div>
         <div class="card-info-container">
             <h3 id="name" class="card-name cap">${entry.name.first} ${entry.name.last}</h3>
-            <p class="card-text">email</p>
+            <p class="card-text">${entry.email}</p>
             <p class="card-text cap">city, state</p>
         </div>
     </div>`
