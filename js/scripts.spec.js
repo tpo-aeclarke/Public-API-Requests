@@ -10,10 +10,10 @@
  * New random employee information displays each time the page refreshes
  * 
  * The directory displays 12 users from the Random User API, and includes the following for each user:
- *    Employee Image
- *    First and Last Name
- *    Email
- *    City or location
+ *    Employee Image x
+ *    First and Last Name x
+ *    Email x
+ *    City or location x
  * 
  * Modal window displays at least the following details:
  *    Employee image
