@@ -134,11 +134,21 @@ describe('meets expectations', () => {
           })
 
           describe('the second child', () => {
-            it('must be the expected markup (email)', () => {
+            it('must have the expected markup (email)', () => {
               const pattern = /^[^@]+@[^@.]+\.[a-z]+$/i
 
               cards.forEach((card) => {
                 const actual = card.children[1].children[1].textContent
+                expect(actual).to.match(pattern)
+              })
+            })
+          })
+          describe('the second child', () => {
+            it('must have the expected markup (city, state)', () => {
+              const pattern = /^\w+/
+
+              cards.forEach((card) => {
+                const actual = card.children[1].children[2].textContent
                 expect(actual).to.match(pattern)
               })
             })
