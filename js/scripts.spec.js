@@ -29,7 +29,6 @@
  * Note: Modal window address can have the state's full name, rather than the two letter state code
  */
 
-
 const expect = window.chai.expect
 
 before(() => {
@@ -91,29 +90,50 @@ describe('meets expectations', () => {
             expect(actual).to.deep.equal(expected)
           })
         })
+
         describe('the first child', () => {
-          it('must have the expected CSS class(es)', () => {
-            const expected = ['card-name', 'cap']
-  
+          it('must be the expected markup', () => {
+            const pattern = /^<img class="card-img" src="https:\/\/randomuser\.me\/api\/portraits\/med\/(men|women)\/\d+\.jpg" alt="profile picture">$/
+
             cards.forEach((card) => {
-              const actual = card.children[1].children[0].className.split(' ')
-              expect(actual).to.have.members(expected)
-            })
-          })
-  
-          it('must have the expected text content', () => {
-            const pattern = /^\w+ \w+$/
-  
-            cards.forEach((card) => {
-              const actual = card.children[1].children[0].textContent
+              const actual = card.children[0].innerHTML.trim()
               expect(actual).to.match(pattern)
             })
           })
         })
-      })      
+
+        describe('the second child', () => {
+          it('must have the expected children', () => {
+            const expected = ['H3', 'P', 'P']
+
+            cards.forEach((card) => {
+              const actual = Array.from(card.children[1].children).map((child) => {
+                return child.tagName})
+              expect(actual).to.deep.equal(expected)
+            })
+          })
+
+          describe('the first child', () => {
+            it('must have the expected CSS class(es)', () => {
+              const expected = ['card-name', 'cap']
+
+              cards.forEach((card) => {
+                const actual = card.children[1].children[0].className.split(' ')
+                expect(actual).to.have.members(expected)
+              })
+            })
+
+            it('must have the expected text content', () => {
+              const pattern = /^\w+ \w+$/
+
+              cards.forEach((card) => {
+                const actual = card.children[1].children[0].textContent
+                expect(actual).to.match(pattern)
+              })
+            })
+          })
+        })
+      })
     })
   })
 })
-// describe('exceeds expectations', () => {
-
-// })
