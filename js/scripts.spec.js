@@ -1,4 +1,5 @@
 /* eslint-env mocha */
+/* global loadData */
 
 'use strict'
 
@@ -31,15 +32,17 @@
 
 const expect = window.chai.expect
 
-// describe('meets expectations', () => {​​
-//   // before <- this code runs before the tests
-//   // after <- this code runs after the tests
-//   // describe <- the thing we are testing
-//   // context <- under specific circumstances
-//   // it <- an actual test   
-// }​​);
+before(() => {
+  return loadData()
+})
 
 describe('meets expectations', () => {
+  // before <- this code runs before the tests
+  // after <- this code runs after the tests
+  // describe <- the thing we are testing
+  // context <- under specific circumstances
+  // it <- an actual test
+
   describe('user gallery', () => {
     it('must have 12 entries', () => {
       const expected = 12
@@ -47,45 +50,70 @@ describe('meets expectations', () => {
 
       expect(actual).to.equal(expected)
     })
-  })
-  describe('each entry', () => {
-    it('must be a DIV element', () => {
-      const expected = 'DIV'
-      document.querySelector('#gallery').children.forEach((child) => {
-        const actual = child.tagName
-        expect(actual).to.equal(expected)
+
+    describe('each entry', () => {
+      it('must be a DIV element', () => {
+        const expected = 'DIV'
+
+        document.querySelector('#gallery').children.forEach((child) => {
+          const actual = child.tagName
+          expect(actual).to.equal(expected)
+        })
       })
-    })
-    it('must have the correct CSS class name', () => {
-      const expected = 'card'
 
-      document.querySelector('#gallery').children.forEach((child) => {
-        const actual = child.className
-        expect(actual).to.equal(expected)
+      it('must have the correct CSS class name', () => {
+        const expected = 'card'
+
+        document.querySelector('#gallery').children.forEach((child) => {
+          const actual = child.className
+          expect(actual).to.equal(expected)
+        })
       })
-    })
-  })
-  describe('the card contents', () => {
-    let cards = null
 
-    before(() => {
-      cards = document.querySelector('#gallery').children
-    })
+      describe('the card contents', () => {
+        let cards = null
 
-    it('must have the expected children', () => {
-      const expected = [
-        'DIV.card-img-container',
-        'DIV.card-info-container'
-      ]
-      
-      cards.forEach((card) => {
-        const actual = Array.from(card.children).map((child) => {
-          return `${child.tagName}.${child.className}`
+        before(() => {
+          cards = document.querySelector('#gallery').children
         })
 
-        expect(actual).to.deep.equal(expected)
-      })
+        it('must have the expected children', () => {
+          const expected = [
+            'DIV.card-img-container',
+            'DIV.card-info-container'
+          ]
+
+          cards.forEach((card) => {
+            const actual = Array.from(card.children).map((child) => {
+              return `${child.tagName}.${child.className}`
+            })
+
+            expect(actual).to.deep.equal(expected)
+          })
+        })
+        describe('the first child', () => {
+          it('must have the expected CSS class(es)', () => {
+            const expected = ['card-name', 'cap']
+  
+            cards.forEach((card) => {
+              const actual = card.children[1].children[0].className.split(' ')
+              expect(actual).to.have.members(expected)
+            })
+          })
+  
+          it('must have the expected text content', () => {
+            const pattern = /^\w+ \w+$/
+  
+            cards.forEach((card) => {
+              const actual = card.children[1].children[0].textContent
+              expect(actual).to.match(pattern)
+            })
+          })
+        })
       })      
+    })
   })
 })
+// describe('exceeds expectations', () => {
 
+// })

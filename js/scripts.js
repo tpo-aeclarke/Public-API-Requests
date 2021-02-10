@@ -1,9 +1,24 @@
 'use strict'
 
-for (let i = 0; i < 12; i++) {
-  const card = `<div class="card">
-    <div class="card-img-container"></div>
-    <div class="card-info-container"></div>
-  </div>`
-  document.querySelector('#gallery').insertAdjacentHTML('beforeend', card)
+function loadData () {
+  return window
+  .fetch('https://randomuser.me/api/?nat=us&results=12')
+    .then((response) => {
+      return response.json()
+    })
+    .then((data => {
+      data.results.forEach((entry) => {
+        const card = `<div class="card">
+        <div class="card-img-container">
+            <img class="card-img" src="${entry.picture.medium}" alt="profile picture">
+        </div>
+        <div class="card-info-container">
+            <h3 id="name" class="card-name cap">${entry.name.first} ${entry.name.last}</h3>
+            <p class="card-text">email</p>
+            <p class="card-text cap">city, state</p>
+        </div>
+    </div>`
+        document.querySelector('#gallery').insertAdjacentHTML('beforeend', card)
+      })
+    }))
 }
