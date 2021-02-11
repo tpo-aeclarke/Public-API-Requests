@@ -27,33 +27,37 @@ function generateGallery (data) {
       </div>`
     card.insertAdjacentHTML('beforeend', cardHTML)
 
-    card.addEventListener('click', () => {
-      createModal(entry)
-    })
+    card.addEventListener('click', () => createModal(entry))
     document.querySelector('#gallery').insertAdjacentElement('beforeend', card)
   })
 }
 
-function createModal (employeeData) {
+function createModal (person) {
   const modal = document.createElement('DIV')
   modal.className = 'modal-container'
+  const personStreetAddress = `${person.location.street.number} ${person.location.street.name}`
+  const ISODOB = person.dob.date.substr(0, 10).replaceAll('-', '')
+  const month = ISODOB.substr(4, 2)
+  const day = ISODOB.substr(6, 2)
+  const year = ISODOB.substr(2, 2)
+  
   const modalHTML = `<div class="modal">
     <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
     <div class="modal-info-container">
-        <img class="modal-img" src="${employeeData.picture.medium}" alt="profile picture">
-        <h3 id="name" class="modal-name cap">${employeeData.name.first} ${employeeData.name.last}</h3>
-        <p class="modal-text">${employeeData.email}</p>
-        <p class="modal-text cap">${employeeData.location.city}</p>
+        <img class="modal-img" src="${person.picture.large}" alt="profile picture">
+        <h3 id="name" class="modal-name cap">${person.name.first} ${person.name.last}</h3>
+        <p class="modal-text">${person.email}</p>
+        <p class="modal-text cap">${person.location.city}</p>
         <hr>
-        <p class="modal-text">(555) 555-5555</p>
-        <p class="modal-text">123 Portland Ave., Portland, OR 97204</p>
-        <p class="modal-text">Birthday: 10/21/2015</p>
+        <p class="modal-text">${person.cell.replace(/-/, ' ')}</p>
+        <p class="modal-text">${personStreetAddress}, ${person.location.city}, ${person.location.state}  ${person.location.postcode}</p>
+        <p class="modal-text">Birthday: ${month}/${day}/${year}</p>
     </div>
 </div>
 </div>`
-modal.insertAdjacentHTML('beforeend', modalHTML)
-document.body.insertAdjacentElement('beforeend', modal)
-document.querySelector('#modal-close-btn').addEventListener('click', () => {
-  modal.remove()    
-})
+  modal.insertAdjacentHTML('beforeend', modalHTML)
+  document.body.insertAdjacentElement('beforeend', modal)
+  document.querySelector('#modal-close-btn').addEventListener('click', () => {
+    modal.remove()
+  })
 }
