@@ -53,4 +53,7 @@ function createModal (employeeData) {
 </div>`
 modal.insertAdjacentHTML('beforeend', modalHTML)
 document.body.insertAdjacentElement('beforeend', modal)
+document.querySelector('#modal-close-btn').addEventListener('click', () => {
+  modal.remove()    
+})
 }
