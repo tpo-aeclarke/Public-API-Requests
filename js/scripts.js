@@ -5,9 +5,9 @@ fetch('https://randomuser.me/api/?nat=us&results=12')
   .then((response) => {
     return response.json()
   })
-  .then((data => {
+  .then(data => {
     generateGallery(data)
-  }))
+  })
 
 /**
  * Generates and inserts gallery HTML based off of data fetch
