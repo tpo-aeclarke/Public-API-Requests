@@ -15,24 +15,24 @@ fetch('https://randomuser.me/api/?nat=us&results=12')
  * Contains event listener for Modal Window creation
  */
 function generateGallery (data) {
-  data.results.forEach((user) => {
+  data.results.forEach((people) => {
     const card = document.createElement('DIV')
     card.className = 'card'
 
     const cardHTML =
     `<div class="card-img-container">
-          <img class="card-img" src="${user.picture.medium}" alt="profile picture">
+          <img class="card-img" src="${people.picture.medium}" alt="profile picture">
       </div>
       <div class="card-info-container">
-          <h3 id="name" class="card-name cap">${user.name.first} ${user.name.last}</h3>
-          <p class="card-text">${user.email}</p>
-          <p class="card-text cap">${user.location.city}</p>
+          <h3 id="name" class="card-name cap">${people.name.first} ${people.name.last}</h3>
+          <p class="card-text">${people.email}</p>
+          <p class="card-text cap">${people.location.city}</p>
       </div>`
 
     card.insertAdjacentHTML('beforeend', cardHTML)
 
     // Event listener for modal window creation
-    card.addEventListener('click', () => createModal(user))
+    card.addEventListener('click', () => createModal(people))
 
     document.querySelector('#gallery').insertAdjacentElement('beforeend', card)
   })
