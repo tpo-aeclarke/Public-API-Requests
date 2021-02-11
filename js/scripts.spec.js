@@ -157,16 +157,24 @@ describe('meets expectations', () => {
       })
     })
   })
-  describe.skip('modal window', () => {
-    it('must have 12 entries', () => {
-      const expected = 12
-      const actual = document.querySelector('#modal').children.length
+  describe('modal window', () => {
+    it('must have the expected children', () => {
+      const expected = [
+        'BUTTON.modal-close-btn',
+        'DIV.modal-info-container'
+      ]
+
+      cards.forEach((card) => {
+        const actual = Array.from(card.children).map((child) => {
+          return `${child.tagName}.${child.className}`
+        })
 
       expect(actual).to.equal(expected)
     })
   })
 })
-
+})
+// -------------------------------------------------------------------------------------------------------------------------X
 /**
  *  <div class="modal-container">
                 <div class="modal">
