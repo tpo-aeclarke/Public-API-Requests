@@ -71,8 +71,11 @@ function createModal (person) {
     </div>
 </div>
 </div>`
+
   modal.insertAdjacentHTML('beforeend', modalHTML)
   document.body.insertAdjacentElement('beforeend', modal)
+
+  // Event listener for modal close button - removes modal element
   document.querySelector('#modal-close-btn').addEventListener('click', () => {
     modal.remove()
   })
